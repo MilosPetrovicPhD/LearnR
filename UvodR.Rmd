@@ -1,1 +1,357 @@
-\url{https://www.youtube.com/watch?v=L03A81OgLlk&ab_channel=StanfordOnline}
+---
+title: "UvodR"
+author: "Milos Petrovic"
+date: "2023-10-26"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## R i RStudio
+Analiza podataka zahteva veoma dobro računarsko okruženje.
+Jedno od takvih okruženja je integraciono razvojno okruženje (IDE, P: Zašto "integraciono"? O: Zato što je to skup alata,
+koji nam omogućava da lakše pišemo R kod) RStudio, koje nam može poslužiti da prezentujemo programski jezik R (programski jezik R
+možemo koristiti i bez integracionog razvojnog okruženja RStudio). 
+
+Programski jezik R i integraciono razvojno okruženje RStudio su besplatni i poseduju širok spektar mogućnosti.
+R ima poprilično strmu krivu učenja (šta znači "strma kriva učenja"?).
+
+Programski jezik R pokrece kod koji cemo
+pisati i odvojen je od okruzenja RStudio.
+Mozemo koristiti konzolu (console)
+za interaktivan pristup ili R skriptu
+koju cemo sacuvati npr. kao myScript.R.
+
+
+
+### Instalacija za R i RStudio
+- Instalacija za R: \url{https://cran.rstudio.com/}
+- Instalacija za RStudio: \url{https://posit.co/download/rstudio-desktop/}
+
+## Osnovne osobine programskog jezika R
+
+\url{https://www.youtube.com/watch?v=EfgW-SB_DoQ&t=2807s&ab_channel=CS50}
+R je programski jezik inicijalno dizajniran za statistiku i analizu podataka.
+Medjutim, R se moze koristiti i za internet stranice, kao i za simulacije.
+
+Koristićemo programski jezik R za delove projekta koji uključuje:
+- rudarenje velikih skupova podataka;
+- automatsku ili komplikovanu statističku analizu;
+- vizuelizaciju podataka ili grafički prikaz.
+
+Pretpostavimo da su nam svakog dana potrebni ažurni podaci sa nekog internet sajta.
+Programski jezik R nam može poslužiti da napišemo skriptu koja će prikupiti neophodne podatke sa interneta. U operativnom sistemu možemo podesiti
+da se skripta izvrši svakog dana u određeno vreme,
+tako ćemo svakog dana automatski dobiti nove podatke
+sa traženim prikazom, koji smo isprogramirali pomoću programskog jezika R.
+
+Programski jezik R je 
+- imperativan;
+- slabo tipiziran;
+- interpretirajući.
+
+Tipovi podataka u programskom jeziku R:
+- atomski tipovi su:
+  - numerički (64 bitni tip sa pokretnom tackom)
+  - karakter (string)
+  - logički tip (Boolean)
+  - coercion (and scanf() equivalents) with as.numeric et sim.
+- vektori, matrice i višedimenzionalni nizovi gore navedenih tipova;
+- liste (tip asocijativnog niza, 
+vektori listi se ponašaju pomalo čudno);
+- ne postoje pravi "čisti" atomski tipovi:
+pojedine vrednosti se tretiraju kao 
+nizovi dužine 1;
+- ne postoje nizovi sa mešovitim tipovima:
+ukoliko to pokušate dobićete implicitnu
+konverziju u string.
+
+
+Neuobicajene sintaksne karakteristike programskoj jezika R:
+
+-nije potrebno deklarisati promenljive;
+-pridruzivanje se obavlja pomocu operatora "<-";
+  Broj je vektor duzine 1
+a <- 1
+
+print(a)
+
+
+
+## Converting between dataframes and vectors
+\url{https://www.youtube.com/watch?v=ZSUQU-QzNRw&ab_channel=weecology}
+
+Vectors vs. Dataframes
+- Vectors store multiple values of the same type.
+- Dataframes store multiple values one in each column, that can have different types. 
+
+A dataframe is a bunch of equally length vectors grouped together. So, we can extract columns from a dataframe and turn them into vectors.
+On the other hand, we can make a dataframe out of
+a bunch of vectors that we have already created in R.
+
+download.file("https://github.com/datacarpentry/2014-09-29-iDigBio/raw/master/data/biology/surveys.csv", "surveys.csv")
+
+surveys <- read.csv("surveys.csv")
+
+surveys$species_id
+
+The dollar sign give us the named peaces
+of the object and in this case that
+are the names of the columns:
+
+surveys
+
+## Writing your own functions in R
+
+## Repeating Things in R
+
+
+
+### Looping Using Functions
+
+
+
+
+### Looping Over Files
+\url{https://www.youtube.com/watch?v=4-uWgh5kDSc&ab_channel=weecology}
+
+download.file("https://www.datacarpentry.org/semester-biology/data/locations.zip", "locations.zip")
+
+unzip("locations.zip")
+
+data_files <- list.files(pattern = "locations-")
+
+data_files 
+
+results <- vector(mode = "integer", length = length(data_files))
+
+for (i in 1:length(data_files)) {
+  data <- read.csv(data_files[i])
+  count <- nrow(data)
+  results[i] <- count
+}
+
+results
+
+### Upisivanje u fajl
+```{r }
+# Open a file for writing
+file <- file("output.txt", "w")
+# Write to the file
+write("Novi red!", file)
+# Close the file
+close(file)
+```
+
+### Citanje fajla
+file <- file("output.txt", "r") # podesavanje fajla za citanje
+data <- read.csv(file) # citanje fajla
+print(data) # prikaz ucitanih podataka
+close(file) # zatvaranje fajla
+```{r }
+# Alternative za citanje fajlova su prikazane u nastavku
+# Read a file
+data <- read.table("output.txt", header = TRUE)
+# Read a CSV file
+data <- read.csv("input.csv")
+# Read a tab-delimited file
+data <- read.delim("input.txt", sep = "\t")
+```
+
+-komentari se pisu pomocu #;
+-ostatak pri deljenju i celobrojno deljenje sa "%%" i "%/%"; 
+-opseg sa dvotackom (2:5 je vektor [2 3 4 5]);
+-indeksiranje pocinje od broja 1.
+
+
+R nam omogućava da izvršavamo osnovne operacije nad podacima i poseduje dosta ugrađenih paketa. R takođe ima predivnu grafiku. 
+Nakon određenog vremena provedenog učeći R, 
+možete naučiti da samostalno pišete funkcije 
+i time proširite svoje mogućnosti. 
+Programski jezik R, RStudio i alati slični njima nam omogućavaju da radimo analizu podataka i statističko modeliranje.
+
+## R Markdown
+
+Ovo je primer R Markdown dokumenta u integracionom razvojnom okruženju RStudio. 
+Markdown je jednostavna sintaksa za formatiranje,
+i izradu HTML, PDF i MS Word dokumenata. 
+Više detalja o tome kako koristiti R Markdown videti na internet stranici: <http://rmarkdown.rstudio.com>.
+Za korisnike koji počinju sa korišćenjem R Markdown-a može biti veoma koristan sledeći tutorijal:
+<https://ucsbcarpentry.github.io/R-markdown/01-why/index.html>
+ili sledeći blog post:
+<https://www.dataquest.io/blog/r-markdown-tips-tricks-and-shortcuts/>
+
+Detaljnije u R Markdown cookbook:
+<https://bookdown.org/yihui/rmarkdown-cookbook/>
+
+Kada kliknete na dugme **Knit** generisaće se dokument koji uključuje sadržaj, kao i rezultat ugrađenih delova R koda u dokument. 
+Umetanje dela R koda unutar R Markdown dokumenta se postiže na sledeći način:
+
+```{r cars}
+summary(cars)
+```
+
+## Umetanje grafikona u R kod
+
+Unutar R Markdown dokumeta možete takođe umetati i grafikone, na sledeći način:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Vrednost parametra `echo = FALSE` sprečava R kod da generiše grafikon.
+
+Mi se upravo nalazimo u R skripti u RStudio sesiji, koja se nalazi u gornjem levom panelu.
+Međutim, u donjem levom panelu se nalazi
+R radna sesija.
+Kada se nađemo u odgovarajućem redu u R skripti, kombinacijom tastera Ctrl + Enter dobijamo da se dati red izvrši u R radnoj sesiji.
+
+U nastavku ćemo na opisani način izvršavati komande koje su unapred unete.
+
+### Vektori, podaci, matrice
+
+Postoji više načina da se kreiraju vektori u programskom jeziku R.
+1) Vektoru x možemo pridružiti tri broja na sledeći način:
+x=c(2,7,5) 
+
+Vektor x možemo prikazati na sledeći način:
+x
+
+2) Možemo upotrebiti komandu seq, pomoću koje ćemo formirati vektor y koga će činiti niz brojeva počev od broja 4, dužina niza je 3, a razmak između elemenata niza je 3:
+y=seq(from=4,length=3,by=3)
+
+Komanda seq je veoma korisna, 
+upotrebom znaka pitanja ispred te komande
+možemo dobiti više informacija o toj komandi:
+?seq
+
+Vektor y možemo prikazati na sledeći način:
+y
+
+Vektor x+y predstavlja zbir vektora x i y:
+x+y
+
+Vektor x/y se dobija kada 
+odgovarajuće komponente vektora x podelimo odgovarajućim komponentama vektora y:
+x/y
+
+Vektor x^y se dobija kada
+odgovarajuće komponente vektora x stepenujemo odgovarajućim komponentama vektora y:
+x^y
+
+Vektor x[2] sadrži samo drugu komponentu vektora x:
+x[2]
+
+Vektor x[2:3] sadrži samo drugu i treću komponentu vektora x:
+x[2:3]
+
+Vektor x[-2] se dobija kada eliminišemo drugu komponentu vektora x: 
+x[-2] 
+
+Vektor x[-c(1,2)] se dobija kada iz vektora x eliminišemo prvu i drugu komponentu:
+x[-c(1,2)]
+
+Matrica formata 4x3, koju čini niz elemenata prirodnih brojeva od 1 do 12 se formira na sledeći način:
+z=matrix(seq(1,12),4,3) 
+
+Prikažimo matricu z na sledeći način:
+z
+Na osnovu dobijenog prikaza vidimo da 
+prvu kolonu matrice z čine brojevi:
+1, 2, 3, 4.
+
+Drugu kolonu matrice z čine brojevi:
+5, 6, 7, 8.
+
+Treću kolonu matrice z čine brojevi:
+9, 10, 11, 12.
+
+Matricu z[3:4,2:3] čine elementi matrice z
+koji se nalaze u trećoj, četvrtoj vrsti
+i drugoj i trećoj koloni.
+
+Vektor z[,1] predstavlja prvu kolonu matrice z i više nema status matrice:
+z[,1]
+
+Vektor z[,1,drop=FALSE] predstavlja prvu kolonu matrice z i zadržava status matrice:
+z[,1,drop=FALSE]
+
+Komanda dim(z) nam daje dimenziju ili format matrice z:
+dim(z) 
+
+Komanda ls() nam prikazuje šta nam je dostupno u radnom direktorijumu:
+ls()
+
+Komandom rm(y) možemo eliminisati y iz radnog direktorijuma:
+rm(y)
+
+Ponovnim pozivom funkcije ls() možemo proveriti da li je y uklonjeno iz radnog direktorijuma:
+ls() 
+
+### Generisanje slučajnih podataka, grafika
+Generisanje 50 slučajnih brojeva uniformne raspodele:
+x=runif(10) 
+# will create 50 random uniform variables
+Prikaz 50 slučajnih brojeva uniformne raspodele:
+x
+
+Generisanje 50 slučajnih brojeva normalne raspodele:
+y=rnorm(10) 
+Prikaz 50 slučajnih brojeva normalne raspodele:
+y
+
+Prikaz 50 slučajnih brojeva čije su 
+x-koordinate generisani slučajni brojevi uniformne 
+raspodele i y-koordinate generisani slučajni brojevi normalne raspodele:
+plot(x,y)
+
+Označavanje x-ose labelom "Slučajna uniformna raspodela"
+i označavanje y-ose labelom "Slučajna normalna".
+Dodavanje oznake karaktera komandom pch="*"
+i dodavanje plave boje komandom col="blue".
+Prikaz grafikona:
+plot(x,y,xlab="Slučajna uniformna",ylab="Slučajna normalna raspodela",pch="*",col="blue")
+
+Formiranje panela koji ima dva reda i jednu kolonu:
+par(mfrow=c(2,1))
+
+plot(x,y)
+Ukoliko se javi sledeća greška:
+"Error in plot.new() : figure margins too large"
+pokušati sledeće: .......
+
+Prikaz histograma na osnovu 50 podataka
+iz normalne raspodele:
+hist(y)
+
+### Učitavanje podataka
+Podešavanje radnog direktorijuma:
+setwd("C:/Users/Milos-T460/Desktop/Projects/R-projects/StatisticalLearning/2.RIntroToR") # set working directory
+Učitavanje CSV dokumenta u promenljivu Auto:
+Auto=read.csv("Auto.csv")
+
+names(Auto)
+Auto$name
+names=names(Auto)
+names
+
+dim(Auto) 
+class(Auto) # show the class of Auto
+?class
+summary(Auto)
+plot(Auto$cylinders, Auto$mpg)
+plot(Auto$cyl,Auto$mpg)
+attach(Auto)
+search()
+plot(cylinders,mpg)
+cylinders=as.factor(cylinders)
+
+
+
+### Istraživanje skupova podataka iz poljoprivrede
+library(agridat)
