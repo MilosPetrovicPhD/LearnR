@@ -1,1 +1,1 @@
-# R-projects
+# Interesting materials for learning programming language R
